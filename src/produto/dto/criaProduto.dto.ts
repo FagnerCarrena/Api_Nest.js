@@ -5,7 +5,8 @@ import { IsString, IsNotEmpty,
      MaxLength,
      ArrayMinSize,
      IsArray,
-     ValidateNested
+     ValidateNested,
+     IsUUID,
      
     
     } from "class-validator";
@@ -36,6 +37,10 @@ descricao: string;
 }
 
 export class CriaProdutoDTO{
+
+  @IsUUID(undefined, { message: 'ID de usuário inválido' })
+  usuarioId: string;
+
 @IsString()
 @IsNotEmpty({message: "o nome deve ser informado!"})   
 nome: string;
@@ -44,6 +49,10 @@ nome: string;
 @IsNumber({ maxDecimalPlaces: 2, allowNaN: false, allowInfinity: false })
 @Min(1, { message: 'O valor precisa ser maior que zero' })
 valor: number;
+
+@IsNumber()
+@Min(0, { message: 'Quantidade mínima inválida' })
+quantidade: number;
 
 
 @IsNumber()
@@ -74,9 +83,4 @@ imagens: ImageProductDTO[];
 @IsString()
 @IsNotEmpty({ message: 'Categoria do produto não pode ser vazia' })
 categoria: string;
-
-
-
-
-
 }

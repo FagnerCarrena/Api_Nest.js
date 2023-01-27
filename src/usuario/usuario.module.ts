@@ -1,9 +1,10 @@
 import { Module } from "@nestjs/common";
 import { UsuarioController } from "./usuario.controller";
-import {usuarioRepository} from './usuario.Repository';
+import {UsuarioRepository} from './usuario.Repository';
+import { emailEhUnicoValidator } from "./validacao/email-eh-unico.validator";
 
 @Module({
     controllers:[UsuarioController],
-    providers:[usuarioRepository]
+    providers:[UsuarioRepository, emailEhUnicoValidator]
 })
 export class UsuarioModule{}

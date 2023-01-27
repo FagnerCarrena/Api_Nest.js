@@ -1,6 +1,8 @@
 import { Controller, Body, Post, Get } from "@nestjs/common";
 import {ProdutoRepository} from './produto.repository';
-import {CaracteristicasProdutoDTO, CriaProdutoDTO} from '../produto/dto/criaProduto.dto'
+import { CriaProdutoDTO} from '../produto/dto/criaProduto.dto'
+import { ProdutoEntity } from "./produto.entity";
+import {v4 as uuid} from 'uuid'
 
 @Controller('/produto')
 export class ProdutoController{
@@ -11,9 +13,20 @@ export class ProdutoController{
 
 @Post()
 async criarProduto(@Body() dadosProduto: CriaProdutoDTO ){
-this.produtoRepository.salvar(dadosProduto);
+    const produto = new ProdutoEntity()
 
-return dadosProduto;
+    produto.id = uuid();
+    produto.nome = dadosProduto.nome;
+    produto.usuarioId = dadosProduto.usuarioId;
+    produto.valor = dadosProduto.valor;
+    produto.quantidade = dadosProduto.quantidade;
+    produto.descricao = dadosProduto.descricao;
+    produto.categoria = dadosProduto.categoria;
+    produto.caracteristicas = dadosProduto.caracteristicas;
+    produto.imagens = dadosProduto.imagens;
+
+    const produtoCadastrado = this.produtoRepository.salvar(produto);
+    return produtoCadastrado;
 
     }
 
