@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { criaUsuarioDTO } from 'src/dto/criaUsario.dto';
+import { criaUsuarioDTO } from './dto/CriaUsuario.dto';
 import { UsuarioEntity } from './usuario.entity';
 import { UsuarioRepository } from './usuario.Repository';
 import {v4 as uuid} from 'uuid'
-import { ListaUsuarioDTO } from 'src/dto/listausuario.dto';
-import { AtualizaUsuarioDTO } from 'src/dto/AtualizaUsuario.dto';
+import { ListaUsuarioDTO } from './dto/listausuario.dto';
+import { AtualizaUsuarioDTO } from './dto/AtualizaUsuario.dto';
 import { Delete, Param, Put } from '@nestjs/common/decorators';
 
 @Controller('/usuarios')
@@ -34,6 +34,7 @@ constructor(private usuarioRepository: UsuarioRepository ){
   async listaUsuario(){
 
     const usuarioSalvos = await this.usuarioRepository.listarUsuarios();
+    
     const usuarioListados = usuarioSalvos.map(
       usuario => new ListaUsuarioDTO(
         usuario.id,

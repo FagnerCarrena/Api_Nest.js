@@ -1,4 +1,3 @@
-
 import { IsEmail, MinLength, IsNotEmpty,IsString, IsOptional} from "class-validator";
 import { EmailEhunico } from "src/usuario/validacao/email-eh-unico.validator";
 
